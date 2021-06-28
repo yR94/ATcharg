@@ -1,0 +1,47 @@
+/* Sweep
+ by BARRAGAN <http://barraganstudio.com>
+ This example code is in the public domain.
+
+ modified 8 Nov 2013
+ by Scott Fitzgerald
+ http://www.arduino.cc/en/Tutorial/Sweep
+*/
+
+#include <Servo.h>
+
+Servo myservo;  // create servo object to control a servo
+// twelve servo objects can be created on most boards
+
+int pos = 100;    // variable to store the servo position
+int srl =  0;
+int a=0;
+void setup() {
+  myservo.attach(9);  // attaches the servo on pin 9 to the servo object
+  Serial.begin(9600); 
+   pinMode(2, OUTPUT);
+   digitalWrite(2, HIGH);
+}
+
+void loop() {
+  a = Serial.available();
+  if (a) {
+  
+   srl = Serial.read();
+   if(srl==97)//97=a key on the keyboard (sireal)
+   {pos = 40;}
+   if(srl==122)//122=z key on the keyboard (sireal)
+   {pos = 90;}
+   if(srl==115)//115=s key on the keyboard (sireal)
+   {digitalWrite(2, HIGH);}
+   
+   if(srl==120)//122=z key on the keyboard (sireal)
+   {digitalWrite(2, LOW);}
+   
+    
+  }
+  Serial.print(a);
+  Serial.print("     ");
+  Serial.println(srl);
+  myservo.write(pos);  
+  
+}
